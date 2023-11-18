@@ -47,20 +47,20 @@ namespace V10
 
         private void GameInput_OnSprintAction(object sender, System.EventArgs e)
         {
-            //if (!IsOwner)
-            //{
-            //    return;
-            //}
+            if (!IsOwner)
+            {
+                return;
+            }
 
             isSprinting = !isSprinting;
         }
 
         private void GameInput_OnJumpAction(object sender, System.EventArgs e)
         {
-            //if (!IsOwner)
-            //{
-            //    return;
-            //}
+            if (!IsOwner)
+            {
+                return;
+            }
 
             if (isGrounded)
             {
@@ -70,12 +70,12 @@ namespace V10
 
         private void Update()
         {
-            //if (!IsOwner)
-            //{
-            //    return;
-            //}
+            if (!IsOwner)
+            {
+                return;
+            }
 
-            bool isFeetGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+            bool isFeetGrounded = Physics.Raycast(groundCheck.position, -transform.up, groundDistance, groundMask);
 
             isGrounded = isFeetGrounded && (Vector3.Angle(Vector3.up, hitNormal) <= characterController.slopeLimit);
 
@@ -91,25 +91,21 @@ namespace V10
                 velocity.y = 0f;
             }
 
-            float currentSpeed = isSprinting ? sprintSpeed : speed;
-
             Vector2 inputVector = GameInput.Instance.GetMovementVectorNormalized();
+
+            float currentSpeed = isSprinting ? sprintSpeed : speed;
 
             float x = inputVector.x;
             float z = inputVector.y;
 
             Vector3 move = transform.right * x + transform.forward * z;
 
-            if (!isGrounded)
-            {
-                move = Vector3.ProjectOnPlane(move, hitNormal).normalized * move.magnitude;
-            }
-
             characterController.Move(move * currentSpeed * Time.deltaTime);
 
             velocity.y += gravity * Time.deltaTime;
 
             characterController.Move(velocity * Time.deltaTime);
+
         }
 
         private void OnControllerColliderHit(ControllerColliderHit hit)
