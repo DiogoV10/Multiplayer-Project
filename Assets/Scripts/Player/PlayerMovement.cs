@@ -47,20 +47,14 @@ namespace V10
 
         private void GameInput_OnSprintAction(object sender, System.EventArgs e)
         {
-            if (!IsOwner)
-            {
-                return;
-            }
+            if (!GameManager.Instance.IsGamePlaying() && !GameManager.Instance.IsGameOver()) return;
 
             isSprinting = !isSprinting;
         }
 
         private void GameInput_OnJumpAction(object sender, System.EventArgs e)
         {
-            if (!IsOwner)
-            {
-                return;
-            }
+            if (!GameManager.Instance.IsGamePlaying() && !GameManager.Instance.IsGameOver()) return;
 
             if (isGrounded)
             {
@@ -71,6 +65,11 @@ namespace V10
         private void Update()
         {
             if (!IsOwner)
+            {
+                return;
+            }
+
+            if (!GameManager.Instance.IsGamePlaying() && !GameManager.Instance.IsGameOver())
             {
                 return;
             }

@@ -59,13 +59,13 @@ CharacterController:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Height: 1.8
+  m_Height: 1.6
   m_Radius: 0.3
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0.9, z: 0}
+  m_Center: {x: 0, y: 0.8, z: 0}
 --- !u!114 &-2614725328814951943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -80,8 +80,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 4
   sprintSpeed: 8
-  gravity: -19.62
-  jumpHeight: 3
+  gravity: -39.24
+  jumpHeight: 2
   groundCheck: {fileID: 4458995525492622230}
   groundDistance: 0.4
   groundMask:
