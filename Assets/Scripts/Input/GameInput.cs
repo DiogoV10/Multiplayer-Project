@@ -21,6 +21,7 @@ namespace V10
         public event EventHandler OnJumpAction;
         public event EventHandler OnSprintAction;
         public event EventHandler OnInteractAction;
+        public event EventHandler OnPauseAction;
 
 
         public enum Binding
@@ -53,6 +54,12 @@ namespace V10
             playerInputActions.Player.Jump.performed += Jump_performed;
             playerInputActions.Player.Sprint.performed += Sprint_performed;
             playerInputActions.Player.Interact.performed += Interact_performed;
+            playerInputActions.Player.Pause.performed += Pause_performed;
+        }
+
+        private void Pause_performed(InputAction.CallbackContext obj)
+        {
+            OnPauseAction?.Invoke(this, EventArgs.Empty);
         }
 
         private void Interact_performed(InputAction.CallbackContext obj)

@@ -47,7 +47,9 @@ namespace V10
 
         private void GameInput_OnSprintAction(object sender, System.EventArgs e)
         {
-            if (!GameManager.Instance.IsGamePlaying() && !GameManager.Instance.IsGameOver()) return;
+            //if (!GameManager.Instance.IsGamePlaying() && !GameManager.Instance.IsGameOver()) return;
+
+            //if (GameManager.Instance.IsGamePaused()) return;
 
             isSprinting = !isSprinting;
         }
@@ -55,6 +57,8 @@ namespace V10
         private void GameInput_OnJumpAction(object sender, System.EventArgs e)
         {
             if (!GameManager.Instance.IsGamePlaying() && !GameManager.Instance.IsGameOver()) return;
+
+            if (GameManager.Instance.IsGamePaused()) return;
 
             if (isGrounded)
             {
@@ -74,13 +78,19 @@ namespace V10
                 return;
             }
 
+            HandleMovement();
+
+        }
+
+        private void HandleMovement()
+        {
             bool isFeetGrounded = Physics.Raycast(groundCheck.position, -transform.up, groundDistance, groundMask);
 
             isGrounded = isFeetGrounded && (Vector3.Angle(Vector3.up, hitNormal) <= characterController.slopeLimit);
 
             bool hitCeiling = Physics.Raycast(ceilingCheck.position, Vector3.up, ceilingCheckDistance);
 
-            if (isGrounded && velocity.y < 0 )
+            if (isGrounded && velocity.y < 0)
             {
                 velocity.y = -2f;
             }
@@ -91,6 +101,11 @@ namespace V10
             }
 
             Vector2 inputVector = GameInput.Instance.GetMovementVectorNormalized();
+
+            if (GameManager.Instance.IsGamePaused())
+            {
+                inputVector = Vector2.zero;
+            }
 
             float currentSpeed = isSprinting ? sprintSpeed : speed;
 
@@ -104,7 +119,6 @@ namespace V10
             velocity.y += gravity * Time.deltaTime;
 
             characterController.Move(velocity * Time.deltaTime);
-
         }
 
         private void OnControllerColliderHit(ControllerColliderHit hit)

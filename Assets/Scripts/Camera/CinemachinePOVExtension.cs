@@ -44,6 +44,11 @@ namespace V10
                 {
                     Vector2 inputVector = GameInput.Instance.GetLookVector();
 
+                    if (GameManager.Instance.IsGamePaused())
+                    {
+                        inputVector = Vector2.zero;
+                    }
+
                     float mouseX = inputVector.x * mouseSensitivity * Time.deltaTime;
                     float mouseY = inputVector.y * mouseSensitivity * Time.deltaTime;
 
