@@ -91,12 +91,12 @@ namespace V10
                 isLocalPlayerReady = true;
                 OnLocalPlayerReadyChanged?.Invoke(this, EventArgs.Empty);
 
-                SetPlayerReadyServerRPC();
+                SetPlayerReadyServerRpc();
             }
         }
 
         [ServerRpc(RequireOwnership = false)]
-        private void SetPlayerReadyServerRPC(ServerRpcParams serverRpcParams = default)
+        private void SetPlayerReadyServerRpc(ServerRpcParams serverRpcParams = default)
         {
             playerReadyDictionary[serverRpcParams.Receive.SenderClientId] = true;
 

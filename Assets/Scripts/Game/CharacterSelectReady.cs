@@ -51,6 +51,7 @@ namespace V10
 
             if (allClientsReady)
             {
+                GameLobby.Instance.DeleteLobby();
                 Loader.LoadNetwork(Loader.Scene.GameScene);
             }
         }

@@ -80,10 +80,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPositionList:
-  - {x: -2, y: 0, z: 0}
-  - {x: 2, y: 0, z: 0}
-  - {x: -2, y: 0, z: -2}
-  - {x: 2, y: 0, z: -2}
+  - {x: 0, y: 0, z: 0}
+  - {x: 3, y: 0, z: -3}
+  - {x: 3, y: 0, z: -5}
+  - {x: 3, y: 0, z: -7}
+  - {x: 3, y: 0, z: -9}
+  - {x: 1, y: 0, z: -9}
+  - {x: 2, y: 0, z: -9}
+  - {x: 2, y: 0, z: -7}
+  - {x: 2, y: 0, z: -5}
+  - {x: 2, y: 0, z: -3}
+  - {x: 1, y: 0, z: -5}
 --- !u!114 &-2614725328814951943
 MonoBehaviour:
   m_ObjectHideFlags: 0

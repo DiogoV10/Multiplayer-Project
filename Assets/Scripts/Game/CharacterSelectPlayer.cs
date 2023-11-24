@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,6 +14,7 @@ namespace V10
         [SerializeField] private int playerIndex;
         [SerializeField] private GameObject readyGameObject;
         [SerializeField] private Button kickButton;
+        [SerializeField] private TextMeshPro playerNameText;
 
 
         private void Awake()
@@ -20,6 +22,7 @@ namespace V10
             kickButton.onClick.AddListener(() =>
             {
                 PlayerData playerData = GameMultiplayer.Instance.GetPlayerDataFromPlayerIndex(playerIndex);
+                GameLobby.Instance.KickPlayer(playerData.playerId.ToString());
                 GameMultiplayer.Instance.KickPlayer(playerData.clientId);
             });
         }
@@ -52,8 +55,12 @@ namespace V10
                 Show();
 
                 PlayerData playerData = GameMultiplayer.Instance.GetPlayerDataFromPlayerIndex(playerIndex);
+
                 readyGameObject.SetActive(CharacterSelectReady.Instance.IsPlayerReady(playerData.clientId));
-            } else
+
+                playerNameText.text = playerData.playerName.ToString();
+            } 
+            else
             {
                 Hide();
             }
