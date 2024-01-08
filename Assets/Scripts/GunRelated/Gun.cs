@@ -8,7 +8,8 @@ namespace V10
     {
         [SerializeField] public GunData gunData;
         [SerializeField] private Transform muzzle;
-
+        [SerializeField] private Camera targetCamera;
+        [SerializeField] private GameObject bullet;
 
         float timeSinceLastShot;
 
@@ -20,19 +21,20 @@ namespace V10
 
         private void OnEnable()
         {
-            PlayerShoot.reloadInput += Reload;
+            PlayerShoot.reloadInput += StartReload;
             PlayerShoot.shootInput += Shoot;
         }
 
         private void OnDisable()
         {
-            PlayerShoot.reloadInput -= Reload;
+            PlayerShoot.reloadInput -= StartReload;
             PlayerShoot.shootInput -= Shoot;
         }
 
         private void Update()
         {
             timeSinceLastShot += Time.deltaTime;
+            Debug.DrawRay(muzzle.position, muzzle.forward);
         }
 
         public bool CanShoot() => !gunData.isReloading && timeSinceLastShot > 1f / (gunData.fireRate / 60f);
@@ -43,13 +45,23 @@ namespace V10
             {
                 if(CanShoot())
                 {
-                    if(Physics.Raycast(transform.position, transform.forward, out RaycastHit hitInfo, gunData.maxDistance))
+                    Vector3 bulletDirectionWithoutSpread = BulletDirection();
+                    float spreadX = UnityEngine.Random.Range(-gunData.bulletSpread, gunData.bulletSpread);
+                    float spreadY = UnityEngine.Random.Range(-gunData.bulletSpread, gunData.bulletSpread);
+
+                    Vector3 bulletDirectionWithSpread = bulletDirectionWithoutSpread + new Vector3(spreadY, spreadX, 0);
+
+                    Bullet(bulletDirectionWithSpread);
+                    /*
+                    if(Physics.Raycast(muzzle.position, transform.forward, out RaycastHit hitInfo, gunData.maxDistance))
                     {
                         Debug.Log(hitInfo.transform.name);
                     }
+                    */
                     gunData.currentAmmo--;
                     timeSinceLastShot = 0;
                     OnGunShot();
+                    if (gunData.currentAmmo == 0) Debug.Log("No ammo left!");
                 }
             }
         }
@@ -59,9 +71,45 @@ namespace V10
 
         }
 
-        public void Reload()
+        public void StartReload()
         {
+            if(!gunData.isReloading)
+            {
+                StartCoroutine(Reload());
+            }
+        }
 
+        public IEnumerator Reload()
+        {
+            Debug.Log("Reloading...");
+            gunData.isReloading = true;
+            yield return new WaitForSeconds(gunData.reloadTime);
+            gunData.currentAmmo = gunData.magSize;
+            gunData.isReloading = false;
+            Debug.Log("Reloading ended!");
+        }
+
+        private void Bullet(Vector3 directionWithSpread)
+        {
+            GameObject currentBullet = Instantiate(bullet, muzzle.position, Quaternion.identity);
+            currentBullet.transform.forward = directionWithSpread.normalized;
+
+            currentBullet.GetComponent<Rigidbody>().AddForce(directionWithSpread.normalized * gunData.shootForce, ForceMode.Impulse);
+        }
+
+
+
+        private Vector3 BulletDirection()
+        {
+            Ray ray = targetCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+            RaycastHit hit;
+            Vector3 targetPoint;
+            if (Physics.Raycast(ray, out hit))
+                targetPoint = hit.point;
+            else
+                targetPoint = ray.GetPoint(75);
+            Vector3 directionWithoutSpread = targetPoint - muzzle.position;
+            return directionWithoutSpread;
         }
     }
 }

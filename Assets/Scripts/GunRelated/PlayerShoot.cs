@@ -10,7 +10,7 @@ namespace V10
         public static Action shootInput;
         public static Action reloadInput;
 
-        [SerializeField] private KeyCode reloadKey;
+        //[SerializeField] private KeyCode reloadKey;
 
         private void Update()
         {
@@ -19,7 +19,7 @@ namespace V10
                 shootInput?.Invoke();
             }
 
-            if (Input.GetKeyDown(reloadKey))
+            if (Input.GetKeyDown(KeyCode.R))
             {
                 reloadInput?.Invoke();
             }

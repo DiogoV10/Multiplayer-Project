@@ -13,10 +13,16 @@ MonoBehaviour:
   m_Name: FAMAS
   m_EditorClassIdentifier: 
   name: FAMAS
+  gunPrefab: {fileID: 5961954625543006482, guid: dd2041d2547e4934b8e6fa93bd142f8a,
+    type: 3}
+  gunIcon: {fileID: 0}
   damage: 20
   maxDistance: 30
+  bulletSpread: 0.05
   currentAmmo: 30
   magSize: 30
   fireRate: 900
   reloadTime: 1.5
+  shootForce: 70
+  recoilForce: 2.5
   isReloading: 0

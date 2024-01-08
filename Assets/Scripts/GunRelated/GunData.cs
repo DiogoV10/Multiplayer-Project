@@ -9,16 +9,23 @@ namespace V10
     {
         [Header("Info")]
         public new string name;
+        public GameObject gunPrefab;
+        public Sprite gunIcon;
 
         [Header("Shooting")]
         public float damage;
         public float maxDistance;
+        public float bulletSpread;
 
         [Header("Reloading")]
         public int currentAmmo;
         public int magSize;
         public float fireRate;
         public float reloadTime;
+
+        [Header("Bullet")]
+        public float shootForce;
+        public float recoilForce;
 
         [HideInInspector]
         public bool isReloading;
