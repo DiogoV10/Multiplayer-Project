@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3973017638489579998}
   - component: {fileID: 6806389681699899752}
   - component: {fileID: -5668435069958576112}
+  - component: {fileID: 2126870192469886957}
   - component: {fileID: -2614725328814951943}
   - component: {fileID: 3653837722185828886}
   - component: {fileID: -5309234855284627990}
@@ -91,6 +92,19 @@ MonoBehaviour:
   - {x: 2, y: 0, z: -5}
   - {x: 2, y: 0, z: -3}
   - {x: 1, y: 0, z: -5}
+--- !u!114 &2126870192469886957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 84796798704918787}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e5241a271400dc4ea538bbe2ed3479c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  reloadKey: 114
 --- !u!114 &-2614725328814951943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -340,6 +354,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 5681723213561560599}
+    - targetCorrespondingSourceObject: {fileID: 1415556995387802, guid: 18ff8a7a7ca91ff4bab92d116fa797c8,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2192505684700916106}
   m_SourcePrefab: {fileID: 100100000, guid: 18ff8a7a7ca91ff4bab92d116fa797c8, type: 3}
 --- !u!1 &22479930212695556 stripped
 GameObject:
@@ -361,6 +379,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TransitionStateInfoList: []
   m_Animator: {fileID: 80557026913267324}
+--- !u!114 &2192505684700916106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 22479930212695556}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 792ef95041b075f47b5c6c7e6c389d1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &25793738260760454 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4918481578354712, guid: 18ff8a7a7ca91ff4bab92d116fa797c8,
