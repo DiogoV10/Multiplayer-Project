@@ -6,9 +6,9 @@ namespace V10
 {
     public class Gun : MonoBehaviour
     {
-        [SerializeField] public GunData gunData;
+        [SerializeField] public GunDataSO gunData;
         [SerializeField] private Transform muzzle;
-        [SerializeField] private Camera targetCamera;
+        //[SerializeField] private Camera targetCamera;
         [SerializeField] private GameObject bullet;
 
         float timeSinceLastShot;
@@ -101,7 +101,7 @@ namespace V10
 
         private Vector3 BulletDirection()
         {
-            Ray ray = targetCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+            Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
             RaycastHit hit;
             Vector3 targetPoint;
             if (Physics.Raycast(ray, out hit))

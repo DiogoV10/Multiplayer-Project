@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8272938898628571910}
   - component: {fileID: 6511520262522410855}
+  - component: {fileID: 6430011142707334440}
+  - component: {fileID: -3293915863948116645}
   m_Layer: 0
   m_Name: M14
   m_TagString: Untagged
@@ -50,6 +52,39 @@ MonoBehaviour:
   muzzle: {fileID: 831651366974956193}
   targetCamera: {fileID: 0}
   bullet: {fileID: 8984833716381527420, guid: 557ffcd630626344bb6728d8c8b68cea, type: 3}
+--- !u!114 &6430011142707334440
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4982750414714704272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 045e5e62ab257d84ca33a09b1ef0109c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponObjectSO: {fileID: 11400000, guid: fa3bc04fd832a484e90e43960082021c, type: 2}
+--- !u!114 &-3293915863948116645
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4982750414714704272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 951099334
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!1 &7344745935058527798
 GameObject:
   m_ObjectHideFlags: 0

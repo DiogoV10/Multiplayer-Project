@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace V10
 {
-    [CreateAssetMenu()]
+    [CreateAssetMenu(menuName = "Weapon/Weapon Object")]
     public class WeaponObjectSO : ScriptableObject
     {
 

@@ -41,6 +41,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3949017067097943284}
   - component: {fileID: 1705588673371368175}
+  - component: {fileID: -6731011009481575423}
+  - component: {fileID: 4723374386195640565}
   m_Layer: 0
   m_Name: Dragunov
   m_TagString: Untagged
@@ -81,6 +83,39 @@ MonoBehaviour:
   muzzle: {fileID: 7029521534287834906}
   targetCamera: {fileID: 0}
   bullet: {fileID: 8984833716381527420, guid: 6559c50bdb681304a8d63d8a8fa08c64, type: 3}
+--- !u!114 &-6731011009481575423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8596550693645474030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 045e5e62ab257d84ca33a09b1ef0109c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponObjectSO: {fileID: 11400000, guid: f255fa08963fbd04688db8976c6ecd36, type: 2}
+--- !u!114 &4723374386195640565
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8596550693645474030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 951099334
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!1001 &1976985849356651308
 PrefabInstance:
   m_ObjectHideFlags: 0

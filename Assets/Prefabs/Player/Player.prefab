@@ -104,7 +104,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e5241a271400dc4ea538bbe2ed3479c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reloadKey: 114
 --- !u!114 &-2614725328814951943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -128,6 +127,9 @@ MonoBehaviour:
     m_Bits: 64
   ceilingCheck: {fileID: 8258819373395442613}
   ceilingCheckDistance: 0.2
+  countersLayerMask:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!114 &3653837722185828886
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -6,7 +6,7 @@ namespace V10
 {
     public class Bullet : MonoBehaviour
     {
-        [SerializeField] public GunData gunData;
+        [SerializeField] public GunDataSO gunData;
         void Start()
         {
             Destroy(gameObject, 2f);

@@ -41,6 +41,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1542324971152546264}
   - component: {fileID: 552811278925230778}
+  - component: {fileID: -1266370705205473164}
+  - component: {fileID: 3670446309488347552}
   m_Layer: 0
   m_Name: Magnum
   m_TagString: Untagged
@@ -81,6 +83,39 @@ MonoBehaviour:
   muzzle: {fileID: 7113290482700191007}
   targetCamera: {fileID: 0}
   bullet: {fileID: 5183598283375285714, guid: 7ef508de94b23514793d68a08f4299e7, type: 3}
+--- !u!114 &-1266370705205473164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7062934321924156104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 045e5e62ab257d84ca33a09b1ef0109c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponObjectSO: {fileID: 11400000, guid: db71f2f942a9e5d448e400e07e2cfd56, type: 2}
+--- !u!114 &3670446309488347552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7062934321924156104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 951099334
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!1001 &8031849230750099827
 PrefabInstance:
   m_ObjectHideFlags: 0
