@@ -24,17 +24,12 @@ namespace V10
         [SerializeField] private Transform ceilingCheck;
         [SerializeField] private float ceilingCheckDistance = 0.2f;
 
-        [Header("Interaction Settings")]
-        [SerializeField] private LayerMask countersLayerMask;
-
 
         private CharacterController characterController;
         
 
         private Vector3 velocity;
         private Vector3 hitNormal;
-        private Vector3 lastInteractDir;
-        private SpawnWeapon selectedSpawnWeapon;
 
         private bool isGrounded;
         private bool isSprinting;
@@ -49,15 +44,6 @@ namespace V10
         {
             GameInput.Instance.OnJumpAction += GameInput_OnJumpAction;
             GameInput.Instance.OnSprintAction += GameInput_OnSprintAction;
-            GameInput.Instance.OnInteractAction += GameInput_OnInteractAction;
-        }
-
-        private void GameInput_OnInteractAction(object sender, System.EventArgs e)
-        {
-            if (selectedSpawnWeapon != null)
-            {
-                selectedSpawnWeapon.Interact();
-            }
         }
 
         private void GameInput_OnSprintAction(object sender, System.EventArgs e)
@@ -94,7 +80,6 @@ namespace V10
             }
 
             HandleMovement();
-            HandleInteractions();
         }
 
         private void HandleMovement()
@@ -134,38 +119,6 @@ namespace V10
             velocity.y += gravity * Time.deltaTime;
 
             characterController.Move(velocity * Time.deltaTime);
-        }
-
-        private void HandleInteractions()
-        {
-            Vector2 inputVector = GameInput.Instance.GetMovementVectorNormalized();
-
-            Vector3 movedir = new Vector3(inputVector.x, 0f, inputVector.y);
-
-            if (movedir != Vector3.zero)
-            {
-                lastInteractDir = movedir;
-            }
-
-            float interactDistance = 2f;
-            if (Physics.Raycast(transform.position, lastInteractDir, out RaycastHit raycastHit, interactDistance, countersLayerMask))
-            {
-                if (raycastHit.transform.TryGetComponent(out SpawnWeapon spawnWeapon))
-                {
-                    if (spawnWeapon != selectedSpawnWeapon)
-                    {
-                        selectedSpawnWeapon = spawnWeapon;
-                    }
-                }
-                else
-                {
-                    selectedSpawnWeapon = null;
-                }
-            }
-            else
-            {
-                selectedSpawnWeapon = null;
-            }
         }
 
         private void OnControllerColliderHit(ControllerColliderHit hit)

@@ -50,7 +50,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gunData: {fileID: 11400000, guid: 6aafa252efd6c67458ca02875e547d44, type: 2}
   muzzle: {fileID: 761899135593188462}
-  targetCamera: {fileID: 0}
   bullet: {fileID: 2244912984577796166, guid: b47a9aa26cc14a7458bf062f2455d52b, type: 3}
 --- !u!114 &-5970295276944134555
 MonoBehaviour:
@@ -166,6 +165,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4715436291364968, guid: 246e2fda4167a7f4a9f9417c6bc5193f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 64226356387760294, guid: 246e2fda4167a7f4a9f9417c6bc5193f,
+        type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

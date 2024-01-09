@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace V10
 {
-    public class SpawnWeapon : MonoBehaviour
+    public class SpawnWeapon : MonoBehaviour, IWeaponObjectParent
     {
 
 
@@ -15,12 +16,16 @@ namespace V10
         private WeaponObject weaponObject;
 
 
-        public void Interact()
+        public void Interact(Player player)
         {
-            if (weaponObjectSO != null)
+            if (player.HasWeaponObject())
             {
-                Transform weaponObjectTransform = Instantiate(weaponObjectSO.prefab, counterTopPoint);
-                weaponObjectTransform.GetComponent<WeaponObject>().SetSpawnWeapon(this);
+                // Player is carrying something
+            }
+            else
+            {
+                // Player is not carrying something
+                WeaponObject.SpawnWeaponObject(weaponObjectSO, player);
             }
         }
 
@@ -47,6 +52,11 @@ namespace V10
         public bool HasWeaponObject()
         {
             return weaponObject != null;
+        }
+
+        public NetworkObject GetNetworkObject()
+        {
+            return null;
         }
 
 

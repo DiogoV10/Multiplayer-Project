@@ -81,7 +81,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gunData: {fileID: 11400000, guid: 2e3a0c7c51d00c844986142336af1a47, type: 2}
   muzzle: {fileID: 6814016133390506283}
-  targetCamera: {fileID: 0}
   bullet: {fileID: 8984833716381527420, guid: bdf43720bb1323946945797723e18e48, type: 3}
 --- !u!114 &-664776286858986978
 MonoBehaviour:

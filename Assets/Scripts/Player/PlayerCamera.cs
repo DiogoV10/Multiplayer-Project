@@ -12,6 +12,8 @@ namespace V10
 
         [Header("References")]
         [SerializeField] private Transform cameraFollow;
+        [SerializeField] private CinemachineVirtualCamera cinemachineVirtualCamera;
+        [SerializeField] private AudioListener audioListener;
 
 
         private void Start()
@@ -23,8 +25,21 @@ namespace V10
 
             Cursor.lockState = CursorLockMode.Locked;
 
-            CinemachineCameraFollow.Instance.SetFollow(cameraFollow);
-            CinemachinePOVExtension.Instance.SetPlayerTransform(transform);
+            cinemachineVirtualCamera.GetComponent<CinemachineCameraFollow>().SetFollow(cameraFollow);
+            cinemachineVirtualCamera.GetComponent<CinemachinePOVExtension>().SetPlayerTransform(transform);
+        }
+
+        public override void OnNetworkSpawn()
+        {
+            if (IsOwner)
+            {
+                audioListener.enabled = true;
+                cinemachineVirtualCamera.Priority = 1;
+            }
+            else
+            {
+                cinemachineVirtualCamera.Priority = 0;
+            }
         }
 
 

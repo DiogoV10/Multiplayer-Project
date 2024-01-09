@@ -24,6 +24,9 @@ namespace V10
         public event EventHandler OnPlayerDataNetworkListChanged;
 
 
+        [SerializeField] private WeaponObjectListSO weaponObjectListSO;
+
+
         private NetworkList<PlayerData> playerDataNetworkList;
         private string playerName;
 
@@ -190,6 +193,39 @@ namespace V10
         {
             NetworkManager.Singleton.DisconnectClient(clientId);
             NetworkManager_Server_OnClientDisconnectCallback(clientId);
+        }
+
+        public void SpawnWeaponObject(WeaponObjectSO weaponObjectSO, IWeaponObjectParent weaponObjectParent)
+        {
+            SpawnWeaponObjectServerRpc(GetWeaponObjectSOIndex(weaponObjectSO), weaponObjectParent.GetNetworkObject());
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void SpawnWeaponObjectServerRpc(int weaponObjectSOIndex, NetworkObjectReference weaponObjectParentNetworkObjectReference)
+        {
+            WeaponObjectSO weaponObjectSO = GetWeaponObjectSOFromIndex(weaponObjectSOIndex);
+
+            Transform weaponObjectTransform = Instantiate(weaponObjectSO.prefab);
+
+            NetworkObject weaponObjectNetworkObject = weaponObjectTransform.GetComponent<NetworkObject>();
+            weaponObjectNetworkObject.Spawn(true);
+
+            WeaponObject weaponObject = weaponObjectTransform.GetComponent<WeaponObject>();
+
+            weaponObjectParentNetworkObjectReference.TryGet(out NetworkObject weaponObjectParentNetworkObject);
+            IWeaponObjectParent weaponObjectParent = weaponObjectParentNetworkObject.GetComponent<IWeaponObjectParent>();
+
+            weaponObject.SetWeaponObjectParent(weaponObjectParent);
+        }
+
+        private int GetWeaponObjectSOIndex(WeaponObjectSO weaponObjectSO)
+        {
+            return weaponObjectListSO.weaponObjectSOList.IndexOf(weaponObjectSO);
+        }
+
+        private WeaponObjectSO GetWeaponObjectSOFromIndex(int weaponObjectSOIndex) 
+        {
+            return weaponObjectListSO.weaponObjectSOList[weaponObjectSOIndex];
         }
 
 

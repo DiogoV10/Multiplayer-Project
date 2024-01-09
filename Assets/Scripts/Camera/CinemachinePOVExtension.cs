@@ -7,9 +7,6 @@ namespace V10
     {
 
 
-        public static CinemachinePOVExtension Instance { get; private set; }
-
-
         [Header("Mouse Settings")]
         [SerializeField] private float mouseSensitivity = 100f;
 
@@ -18,13 +15,6 @@ namespace V10
 
         private Vector3 startingRotation;
 
-
-        protected override void Awake()
-        {
-            Instance = this;
-
-            base.Awake();
-        }
 
         private void Start()
         {

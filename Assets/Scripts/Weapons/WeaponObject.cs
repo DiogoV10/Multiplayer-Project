@@ -1,47 +1,69 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace V10
 {
-    public class WeaponObject : MonoBehaviour
+    public class WeaponObject : NetworkBehaviour
     {
 
 
         [SerializeField] private WeaponObjectSO weaponObjectSO;
 
 
-        private SpawnWeapon spawnWeapon;
+        private IWeaponObjectParent weaponObjectParent;
 
+        private Vector3 initialPosition;
+
+
+        private void Awake()
+        {
+            initialPosition = transform.position;
+        }
 
         public WeaponObjectSO GetWeaponObjectSO()
         {
             return weaponObjectSO;
         }
 
-        public void SetSpawnWeapon(SpawnWeapon spawnWeapon) 
+        public void SetWeaponObjectParent(IWeaponObjectParent weaponObjectParent) 
         {
-            if (this.spawnWeapon != null)
+            if (this.weaponObjectParent != null)
             {
-                this.spawnWeapon.ClearWeaponObject();
+                this.weaponObjectParent.ClearWeaponObject();
             }
 
-            this.spawnWeapon = spawnWeapon;
+            this.weaponObjectParent = weaponObjectParent;
 
-            if (spawnWeapon.HasWeaponObject())
+            if (weaponObjectParent.HasWeaponObject())
             {
                 Debug.LogError("Already has object!");
             }
 
-            spawnWeapon.SetWeaponObject(this);
+            weaponObjectParent.SetWeaponObject(this);
 
-            transform.parent = spawnWeapon.GetWeaponObjectFollowTransform();
-            transform.localPosition = Vector3.zero;
+            transform.parent = weaponObjectParent.GetWeaponObjectFollowTransform();
+            transform.localPosition = initialPosition;
+            transform.localRotation = Quaternion.identity;
         }
 
-        public SpawnWeapon GetSpawnWeapon()
+        public IWeaponObjectParent GetWeaponObjectParent()
         {
-            return spawnWeapon;
+            return weaponObjectParent;
+        }
+
+        public void DestroySelf()
+        {
+            weaponObjectParent.ClearWeaponObject();
+            Destroy(gameObject);
+        }
+
+
+
+        public static void SpawnWeaponObject(WeaponObjectSO weaponObjectSO, IWeaponObjectParent weaponObjectParent)
+        {
+            GameMultiplayer.Instance.SpawnWeaponObject(weaponObjectSO, weaponObjectParent);
         }
 
 
