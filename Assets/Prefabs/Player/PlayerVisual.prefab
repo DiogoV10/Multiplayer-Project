@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3265276775603919145
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9139168297748240327}
+  m_Layer: 0
+  m_Name: CameraFollow
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9139168297748240327
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3265276775603919145}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.00000008940696, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.069112375, z: 0.2748396}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3971371158935660413}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3965423336638529709
 GameObject:
   m_ObjectHideFlags: 0
@@ -2587,7 +2618,7 @@ GameObject:
   - component: {fileID: 3971586897664779405}
   - component: {fileID: 3916012132919037303}
   - component: {fileID: 8763938156773678364}
-  - component: {fileID: 2966484797642148481}
+  - component: {fileID: 777696328418111468}
   m_Layer: 0
   m_Name: PlayerVisual
   m_TagString: Untagged
@@ -2667,7 +2698,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TransitionStateInfoList: []
   m_Animator: {fileID: 3916012132919037303}
---- !u!114 &2966484797642148481
+--- !u!114 &777696328418111468
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2676,9 +2707,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 3965867082745568527}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 792ef95041b075f47b5c6c7e6c389d1e, type: 3}
+  m_Script: {fileID: 11500000, guid: c4ec4695b70e5b44396d2d336d7ce430, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerMovement: {fileID: 0}
 --- !u!1 &3965889651620634497
 GameObject:
   m_ObjectHideFlags: 0
@@ -3160,6 +3192,7 @@ Transform:
   m_Children:
   - {fileID: 3971586852785390117}
   - {fileID: 3964212996985072131}
+  - {fileID: 9139168297748240327}
   m_Father: {fileID: 3964006313511212567}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3966159424279199167
