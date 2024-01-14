@@ -16,6 +16,7 @@ namespace V10
             GameScene,
             LoadingScene,
             LobbyScene,
+            CharacterCostumization,
             CharacterSelectScene,
         }
 
