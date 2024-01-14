@@ -30,6 +30,7 @@ namespace V10
 
         private Vector3 velocity;
         private Vector3 hitNormal;
+
         private bool isGrounded;
         private bool isSprinting;
 
@@ -79,7 +80,6 @@ namespace V10
             }
 
             HandleMovement();
-
         }
 
         private void HandleMovement()

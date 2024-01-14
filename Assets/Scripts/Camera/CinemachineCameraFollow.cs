@@ -9,16 +9,11 @@ namespace V10
     {
 
 
-        public static CinemachineCameraFollow Instance { get; private set; }
-
-
         private CinemachineVirtualCamera cinemachineVirtualCamera;
 
 
         private void Awake()
         {
-            Instance = this;
-
             cinemachineVirtualCamera = GetComponent<CinemachineVirtualCamera>();
         }
 

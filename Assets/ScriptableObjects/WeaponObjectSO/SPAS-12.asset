@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f116d452e675f5a4ab3b97f881e20347, type: 3}
+  m_Name: SPAS-12
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 1800492711584028147, guid: 3d5e0d9137d0f6842a84e06713a312ea, type: 3}
+  sprite: {fileID: 0}
+  objectName: SPAS-12
