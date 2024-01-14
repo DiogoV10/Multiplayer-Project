@@ -9,7 +9,7 @@ namespace V10
 {
     public class LoadoutButton : MonoBehaviour
     {
-        public Button saveLoadoutButton;
+        public Button saveLoadoutButton, deleteLoadoutButton;
         public Loadout loadoutSystem;
 
         public TextMeshProUGUI loadoutName, loadoutWeapons;
@@ -20,11 +20,17 @@ namespace V10
 
             ladoutButton.onClick.AddListener(OnClickLoadout);
             saveLoadoutButton.onClick.AddListener(OnClickSaveLoadouts);
+            deleteLoadoutButton.onClick.AddListener(OnClickDeleteLoadout);
         }
 
         private void OnClickLoadout()
         {
             loadoutSystem.OnClickLoadout(loadoutName.text);
+        }
+
+        private void OnClickDeleteLoadout()
+        {
+            loadoutSystem.DeleteLoadout(loadoutName.text);
         }
 
         private void OnClickSaveLoadouts()

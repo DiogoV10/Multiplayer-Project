@@ -18,6 +18,8 @@ namespace V10
             public bool isComplete => guns.Count == 3;
         }
 
+        public List<GameObject> allGunsPossible;
+
         public List<LoadoutBlock> loadouts = new List<LoadoutBlock>();
         private LoadoutBlock selectedLoadout;
 
@@ -72,13 +74,20 @@ namespace V10
 
         private void LoadLoadout(int loadoutIndex)
         {
-            string filePath = Path.Combine(Application.persistentDataPath, "Loadout_" + loadoutIndex + ".json");
+            string loadoutNameKey = "LoadoutName_" + loadoutIndex;
+            string gunNamesKey = "GunNames_" + loadoutIndex;
 
-            if (File.Exists(filePath))
+            if (PlayerPrefs.HasKey(loadoutNameKey) && PlayerPrefs.HasKey(gunNamesKey))
             {
-                string json = File.ReadAllText(filePath);
+                string loadoutName = PlayerPrefs.GetString(loadoutNameKey);
 
-                LoadoutBlock loadedLoadout = JsonUtility.FromJson<LoadoutBlock>(json);
+                string[] gunNames = PlayerPrefs.GetString(gunNamesKey).Split(',');
+
+                LoadoutBlock loadedLoadout = new LoadoutBlock
+                {
+                    loadoutName = loadoutName,
+                    guns = gunNames.Select(gunName => allGunsPossible.Find(gunPrefab => gunPrefab.name == gunName)).ToList()
+                };
 
                 if (loadoutIndex < loadouts.Count)
                 {
@@ -92,6 +101,10 @@ namespace V10
                 Debug.Log("Loaded Loadout: " + loadedLoadout.loadoutName);
 
                 UpdateLoadoutButtons();
+            }
+            else
+            {
+                Debug.Log("Loadout data not found for index " + loadoutIndex);
             }
         }
 
@@ -109,16 +122,36 @@ namespace V10
             {
                 LoadoutBlock loadoutToSave = loadouts[loadoutIndex];
 
-                string json = JsonUtility.ToJson(loadoutToSave);
+                PlayerPrefs.SetString("LoadoutName_" + loadoutIndex, loadoutToSave.loadoutName);
 
-                string filePath = Path.Combine(Application.persistentDataPath, "Loadout_" + loadoutIndex + ".json");
+                List<string> gunNames = loadoutToSave.guns.Select(gunPrefab => gunPrefab.name).ToList();
+                PlayerPrefs.SetString("GunNames_" + loadoutIndex, string.Join(",", gunNames));
 
-                File.WriteAllText(filePath, json);
+                PlayerPrefs.Save();
 
                 Debug.Log("Loadout salvo: " + loadoutToSave.loadoutName);
             }
         }
 
+        public void DeleteLoadout(string loadoutName)
+        {
+            int loadoutIndex = loadouts.FindIndex(l => l.loadoutName == loadoutName);
+
+            if (loadoutIndex != -1)
+            {
+                PlayerPrefs.DeleteKey("LoadoutName_" + loadoutIndex);
+                PlayerPrefs.DeleteKey("GunNames_" + loadoutIndex);
+                PlayerPrefs.Save();
+
+                Debug.Log("Loadout excluído: " + loadoutName);
+                loadouts.RemoveAt(loadoutIndex);
+                UpdateLoadoutButtons();
+            }
+            else
+            {
+                Debug.LogWarning("Loadout não encontrado para exclusão: " + loadoutName);
+            }
+        }
 
         public List<GameObject> GetLoadoutWeapons(int indiceLoadout)
         {
@@ -140,6 +173,10 @@ namespace V10
             if (loadoutButton != null)
             {
                 loadoutButton.UpdateWeaponsText();
+            }
+            else
+            {
+                Debug.Log("This scene doesnt have any standard loadout buttons");
             }
         }
 
