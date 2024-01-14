@@ -534,21 +534,21 @@ MonoBehaviour:
   - {fileID: 2800000, guid: e4b9026477c899f4482293352764d179, type: 3}
   - {fileID: 2800000, guid: 0b05996467b6e0f4d824096b69a82f94, type: 3}
   characterMesh:
-  - {fileID: 4300014, guid: 0045ffb477e043a46950af7e617beb06, type: 3}
-  - {fileID: 4300012, guid: 0045ffb477e043a46950af7e617beb06, type: 3}
-  - {fileID: 4300040, guid: 0045ffb477e043a46950af7e617beb06, type: 3}
-  - {fileID: 4300026, guid: 0045ffb477e043a46950af7e617beb06, type: 3}
-  - {fileID: 4300020, guid: 0045ffb477e043a46950af7e617beb06, type: 3}
-  - {fileID: 4300002, guid: 0045ffb477e043a46950af7e617beb06, type: 3}
-  - {fileID: 4300022, guid: 0045ffb477e043a46950af7e617beb06, type: 3}
-  - {fileID: 4300006, guid: 0045ffb477e043a46950af7e617beb06, type: 3}
-  - {fileID: 4300010, guid: 0045ffb477e043a46950af7e617beb06, type: 3}
-  - {fileID: 4300024, guid: 0045ffb477e043a46950af7e617beb06, type: 3}
-  - {fileID: 4300018, guid: 0045ffb477e043a46950af7e617beb06, type: 3}
-  - {fileID: 4300016, guid: 0045ffb477e043a46950af7e617beb06, type: 3}
-  - {fileID: 4300000, guid: 0045ffb477e043a46950af7e617beb06, type: 3}
-  - {fileID: 4300008, guid: 0045ffb477e043a46950af7e617beb06, type: 3}
-  - {fileID: 4300004, guid: 0045ffb477e043a46950af7e617beb06, type: 3}
+  - {fileID: 4300000, guid: f4b0ea48c2af80948a6e3630bbb53972, type: 2}
+  - {fileID: 4300000, guid: bc608dea2ca545948b88de276165ba7b, type: 2}
+  - {fileID: 4300000, guid: 9a69b643951975445a96582f04bb706a, type: 2}
+  - {fileID: 4300000, guid: 782a82ad943ad5a41aa5026e70b33aad, type: 2}
+  - {fileID: 4300000, guid: 561e594fcc57d7d419da35a7a36cbfa7, type: 2}
+  - {fileID: 4300000, guid: 6e9fec4886f023940837418140cde5cf, type: 2}
+  - {fileID: 4300000, guid: 0e9204b96e833e942b506726864384ff, type: 2}
+  - {fileID: 4300000, guid: b23f8fcb163c1154594c91a3737988b1, type: 2}
+  - {fileID: 4300000, guid: aa7d26e10acfac542ad72a8ac12500fa, type: 2}
+  - {fileID: 4300000, guid: b4e061a06396eb24e820cedc3217c839, type: 2}
+  - {fileID: 4300000, guid: 817a286ebed9c1645b9f514207ef6832, type: 2}
+  - {fileID: 4300000, guid: c563a6ba40840104ca17a3459e8c2bb7, type: 2}
+  - {fileID: 4300000, guid: f27dfa808e5135344874a5f2d77a1b84, type: 2}
+  - {fileID: 4300000, guid: eb15bce33fcd2084a84e853337e4deb7, type: 2}
+  - {fileID: 4300000, guid: a3bdc00d2b3934e43a3fbf297e7f4567, type: 2}
   choosedWeaponTexture: {fileID: 0}
   choosedCharacterMesh: {fileID: 0}
   testWeapon: {fileID: 737850224}

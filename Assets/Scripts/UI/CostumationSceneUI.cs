@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -24,6 +25,8 @@ namespace V10
 
         [SerializeField] GameObject testWeapon;
         [SerializeField] GameObject testCharacter;
+
+        DirectoryInfo dir;
 
         int textureIndex = 0, meshIndex = 0;
 
@@ -59,8 +62,11 @@ namespace V10
                 ApplyChanges();
                 Loader.Load(Loader.Scene.LobbyScene);
             });
+        }
 
-
+        private void Start()
+        {
+            dir = new DirectoryInfo("Assets/Packages/PolygonBattleRoyale/Textures/Weapons");
         }
 
         void ChangeWeaponSkin(int direction = 1)
@@ -69,6 +75,8 @@ namespace V10
             {
                 if (textureIndex == weaponTexture.Length - 1) textureIndex = 0;
                 else textureIndex = textureIndex + direction;
+                Debug.Log(dir.GetFiles()[0]);
+                
             }
             else
             {
@@ -92,13 +100,15 @@ namespace V10
                 else meshIndex = meshIndex + direction;
             }
 
-            testCharacter.gameObject.GetComponent<SkinnedMeshRenderer>().sharedMesh = (characterMesh[meshIndex]);
+            testCharacter.gameObject.GetComponent<SkinnedMeshRenderer>().sharedMesh = characterMesh[meshIndex];
         }
 
         void ApplyChanges()
         {
             choosedCharacterMesh = characterMesh[meshIndex];
             choosedWeaponTexture = weaponTexture[textureIndex];
+            PlayerPrefs.SetString("Mesh", choosedCharacterMesh.name);
+            Debug.Log(meshIndex);
         }
 
         public Texture2D GetTexture() => choosedWeaponTexture;
