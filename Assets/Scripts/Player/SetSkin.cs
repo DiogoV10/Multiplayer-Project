@@ -11,22 +11,15 @@ namespace V10
 {
     public class SetSkin : MonoBehaviour
     {
-        string choosedMesh, path;
-        Mesh applyMesh;
+        int choosedMesh;
+        [SerializeField] Mesh[] characterMesh;
+
 
         // Start is called before the first frame update
         void Start()
         {
-            path = "Assets/PLayerPrefs/Meshes/";
-            choosedMesh = PlayerPrefs.GetString("Mesh");
-
-            #if UNITY_EDITOR
-            applyMesh = (Mesh)AssetDatabase.LoadAssetAtPath(path + choosedMesh + ".mesh", typeof(Mesh));
-            if (applyMesh != null)
-            #endif
-            {
-                gameObject.GetComponent<SkinnedMeshRenderer>().sharedMesh = applyMesh;
-            }
+            choosedMesh = PlayerPrefs.GetInt("Mesh");
+            gameObject.GetComponent<SkinnedMeshRenderer>().sharedMesh = characterMesh[choosedMesh];
         }
     }
 }

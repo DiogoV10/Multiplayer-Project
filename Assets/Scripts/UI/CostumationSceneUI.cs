@@ -125,10 +125,10 @@ namespace V10
 
         void ApplyChanges()
         {
-            PlayerPrefs.SetString("Mesh", characterMesh[meshIndex].name);
-            PlayerPrefs.SetString("PrimaryWeapon", weaponTexture[primaryTextureIndex].name);
-            PlayerPrefs.SetString("SecondaryWeapon", weaponTexture[secondaryTextureIndex].name);
-            PlayerPrefs.SetString("SpecialWeapon", weaponTexture[specialTextureIndex].name);
+            PlayerPrefs.SetInt("Mesh", meshIndex);
+            PlayerPrefs.SetInt("PrimaryWeapon", primaryTextureIndex);
+            PlayerPrefs.SetInt("SecondaryWeapon", secondaryTextureIndex);
+            PlayerPrefs.SetInt("SpecialWeapon", specialTextureIndex);
         }
 
         //public Texture2D GetTexture() => choosedWeaponTexture;

@@ -12,37 +12,29 @@ namespace V10
         [SerializeField] GameObject[] secondaryWeapons;
         [SerializeField] GameObject[] specialWeapons;
 
-        string path, primaryTexture, secondaryTexture, specialTexture;
-        Texture2D applyPrimaryTexture, applySecondaryTexture, applySpecialTexture;
+        [SerializeField] Texture2D[] weaponTexture;
+
+        int primaryTexture, secondaryTexture, specialTexture;
 
         private void Start()
         {
-            path = "Assets/PLayerPrefs/WeaponTextures/";
-            primaryTexture = PlayerPrefs.GetString("PrimaryWeapon");
-            secondaryTexture = PlayerPrefs.GetString("SecondaryWeapon");
-            specialTexture = PlayerPrefs.GetString("SpecialWeapon");
-
-            Debug.Log(primaryTexture);
-            Debug.Log(secondaryTexture);
-            Debug.Log(specialTexture);
-
-            applyPrimaryTexture = (Texture2D)AssetDatabase.LoadAssetAtPath(path + primaryTexture + ".png", typeof(Texture2D));
-            applySecondaryTexture = (Texture2D)AssetDatabase.LoadAssetAtPath(path + secondaryTexture + ".png", typeof(Texture2D));
-            applySpecialTexture = (Texture2D)AssetDatabase.LoadAssetAtPath(path + specialTexture + ".png", typeof(Texture2D));
+            primaryTexture = PlayerPrefs.GetInt("PrimaryWeapon");
+            secondaryTexture = PlayerPrefs.GetInt("SecondaryWeapon");
+            specialTexture = PlayerPrefs.GetInt("SpecialWeapon");
 
             foreach (GameObject weapon in primaryWeapons)
             {
-                weapon.gameObject.GetComponent<Renderer>().material.SetTexture("_BaseMap", applyPrimaryTexture);
+                weapon.gameObject.GetComponent<Renderer>().material.SetTexture("_BaseMap", weaponTexture[primaryTexture]);
             }
 
             foreach (GameObject weapon in secondaryWeapons)
             {
-                weapon.gameObject.GetComponent<Renderer>().material.SetTexture("_BaseMap", applySecondaryTexture);
+                weapon.gameObject.GetComponent<Renderer>().material.SetTexture("_BaseMap", weaponTexture[secondaryTexture]);
             }
 
             foreach (GameObject weapon in specialWeapons)
             {
-                weapon.gameObject.GetComponent<Renderer>().material.SetTexture("_BaseMap", applySpecialTexture);
+                weapon.gameObject.GetComponent<Renderer>().material.SetTexture("_BaseMap", weaponTexture[specialTexture]);
             }
         }
 
