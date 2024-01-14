@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.Windows;
 
 namespace V10
 {
@@ -14,6 +15,13 @@ namespace V10
         [SerializeField] private float sprintSpeed = 8f;
         [SerializeField] private float gravity = -9.81f;
         [SerializeField] private float jumpHeight = 3f;
+        [Space(10)]
+        [Tooltip("Time required to pass before being able to jump again. Set to 0f to instantly jump again")]
+        [SerializeField] private float jumpTimeout = 0.50f;
+        [Tooltip("Time required to pass before entering the fall state. Useful for walking down stairs")]
+        [SerializeField] private float fallTimeout = 0.15f;
+        [Tooltip("Acceleration and deceleration")]
+        [SerializeField] private float SpeedChangeRate = 10.0f;
 
         [Header("Ground Settings")]
         [SerializeField] private Transform groundCheck;
@@ -31,8 +39,16 @@ namespace V10
         private Vector3 velocity;
         private Vector3 hitNormal;
 
+        private float jumpTimeoutDelta;
+        private float fallTimeoutDelta;
+        private float animationMovementSpeedBlend;
+
+        private bool canJump;
+
         private bool isGrounded;
         private bool isSprinting;
+        private bool isJumping;
+        private bool isFalling;
 
 
         private void Awake()
@@ -44,6 +60,9 @@ namespace V10
         {
             GameInput.Instance.OnJumpAction += GameInput_OnJumpAction;
             GameInput.Instance.OnSprintAction += GameInput_OnSprintAction;
+
+            jumpTimeoutDelta = jumpTimeout;
+            fallTimeoutDelta = fallTimeout;
         }
 
         private void GameInput_OnSprintAction(object sender, System.EventArgs e)
@@ -63,7 +82,7 @@ namespace V10
 
             if (isGrounded)
             {
-                velocity.y += Mathf.Sqrt(jumpHeight * -2f * gravity);
+                canJump = true;
             }
         }
 
@@ -79,6 +98,7 @@ namespace V10
                 return;
             }
 
+            HandleJump();
             HandleMovement();
         }
 
@@ -109,6 +129,14 @@ namespace V10
 
             float currentSpeed = isSprinting ? sprintSpeed : speed;
 
+            if (inputVector == Vector2.zero)
+            {
+                currentSpeed = 0f;
+            }
+
+            animationMovementSpeedBlend = Mathf.Lerp(animationMovementSpeedBlend, currentSpeed, Time.deltaTime * SpeedChangeRate);
+            if (animationMovementSpeedBlend < 0.01f) animationMovementSpeedBlend = 0f;
+
             float x = inputVector.x;
             float z = inputVector.y;
 
@@ -121,9 +149,72 @@ namespace V10
             characterController.Move(velocity * Time.deltaTime);
         }
 
+        private void HandleJump()
+        {
+            if (isGrounded)
+            {
+                fallTimeoutDelta = fallTimeout;
+
+                isJumping = false;
+                isFalling = false;
+
+                if (velocity.y < 0.0f)
+                {
+                    velocity.y = -2f;
+                }
+
+                if (canJump && jumpTimeoutDelta <= 0.0f)
+                {
+                    velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+
+                    isJumping = true;
+                }
+
+                if (jumpTimeoutDelta >= 0.0f)
+                {
+                    jumpTimeoutDelta -= Time.deltaTime;
+                }
+            }
+            else
+            {
+                jumpTimeoutDelta = jumpTimeout;
+
+                if (fallTimeoutDelta >= 0.0f)
+                {
+                    fallTimeoutDelta -= Time.deltaTime;
+                }
+                else
+                {
+                    isFalling = true;
+                }
+
+                canJump = false;
+            }
+        }
+
         private void OnControllerColliderHit(ControllerColliderHit hit)
         {
             hitNormal = hit.normal;
+        }
+
+        public bool IsJumping()
+        {
+            return isJumping;
+        }
+
+        public bool IsFalling()
+        {
+            return isFalling;
+        }
+
+        public bool IsGrounded()
+        {
+            return isGrounded;
+        }
+
+        public float Speed()
+        {
+            return animationMovementSpeedBlend;
         }
 
 
