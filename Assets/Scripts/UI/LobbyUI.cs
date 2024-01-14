@@ -16,6 +16,7 @@ namespace V10
         [SerializeField] private Button quickJoinButton;
         [SerializeField] private Button joinCodeButton;
         [SerializeField] private Button costumizationScene;
+        [SerializeField] private Button loadoutEnterScene;
         [SerializeField] private TMP_InputField joinCodeInputField;
         [SerializeField] private TMP_InputField playerNameInputField;
         [SerializeField] private LobbyCreateUI lobbyCreateUI;
@@ -48,10 +49,13 @@ namespace V10
 
             costumizationScene.onClick.AddListener(() =>
             {
-                GameLobby.Instance.LeaveLobby();
                 Loader.Load(Loader.Scene.CharacterCostumization);
             });
 
+            loadoutEnterScene.onClick.AddListener(() =>
+            {
+                Loader.Load(Loader.Scene.WeaponsLoadout);
+            });
             lobbyTemplate.gameObject.SetActive(false);
             
         }
