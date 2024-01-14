@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -13,22 +14,26 @@ namespace V10
         [SerializeField] Button backButton;
         [SerializeField] Button nextCharacterSkinButton;
         [SerializeField] Button previousCharacterSkinButton;
-        [SerializeField] Button nextWeaponSkinButton;
-        [SerializeField] Button previousWeaponSkinButton;
+        [SerializeField] Button nextPrimaryWeaponSkinButton;
+        [SerializeField] Button previousPrimaryWeaponSkinButton;
+        [SerializeField] Button nextSecondaryWeaponSkinButton;
+        [SerializeField] Button previousSecondaryWeaponSkinButton;
+        [SerializeField] Button nextSpecialWeaponSkinButton;
+        [SerializeField] Button previousSpecialWeaponSkinButton;
         [SerializeField] Button applyButton;
 
         [SerializeField] Texture2D[] weaponTexture;
         [SerializeField] Mesh[] characterMesh;
 
-        [SerializeField] Texture2D choosedWeaponTexture;
+        [SerializeField] Texture2D primaryWeaponTexture, secondaryWeaponTexture, specialWeaponTexture;
         [SerializeField] Mesh choosedCharacterMesh;
 
-        [SerializeField] GameObject testWeapon;
+        [SerializeField] GameObject primaryTestWeapon, secondaryTestWeapon, SpecialTestWeapon;
         [SerializeField] GameObject testCharacter;
 
         DirectoryInfo dir;
 
-        int textureIndex = 0, meshIndex = 0;
+        [SerializeField] int primaryTextureIndex = 0, secondaryTextureIndex = 0, specialTextureIndex = 0, meshIndex = 0;
 
         private void Awake()
         {
@@ -37,14 +42,34 @@ namespace V10
                 Loader.Load(Loader.Scene.LobbyScene);
             });
 
-            nextWeaponSkinButton.onClick.AddListener(() =>
+            nextPrimaryWeaponSkinButton.onClick.AddListener(() =>
             {
-                ChangeWeaponSkin();
+                ChangeWeaponSkin(1, ref primaryTextureIndex, primaryTestWeapon);
             });
 
-            previousWeaponSkinButton.onClick.AddListener(() =>
+            previousPrimaryWeaponSkinButton.onClick.AddListener(() =>
             {
-                ChangeWeaponSkin(-1);
+                ChangeWeaponSkin(-1, ref primaryTextureIndex, primaryTestWeapon);
+            });
+
+            nextSecondaryWeaponSkinButton.onClick.AddListener(() =>
+            {
+                ChangeWeaponSkin(1, ref secondaryTextureIndex, secondaryTestWeapon);
+            });
+
+            previousSecondaryWeaponSkinButton.onClick.AddListener(() =>
+            {
+                ChangeWeaponSkin(-1, ref secondaryTextureIndex, secondaryTestWeapon);
+            });
+
+            nextSpecialWeaponSkinButton.onClick.AddListener(() =>
+            {
+                ChangeWeaponSkin(1, ref specialTextureIndex, SpecialTestWeapon);
+            });
+
+            previousSpecialWeaponSkinButton.onClick.AddListener(() =>
+            {
+                ChangeWeaponSkin(-1, ref specialTextureIndex, SpecialTestWeapon);
             });
 
             nextCharacterSkinButton.onClick.AddListener(() =>
@@ -69,31 +94,26 @@ namespace V10
             dir = new DirectoryInfo("Assets/Packages/PolygonBattleRoyale/Textures/Weapons");
         }
 
-        void ChangeWeaponSkin(int direction = 1)
+        void ChangeWeaponSkin(int direction, ref int textureIndex, GameObject weapon)
         {
-            if(direction == 1)
-            {
-                if (textureIndex == weaponTexture.Length - 1) textureIndex = 0;
-                else textureIndex = textureIndex + direction;
-                Debug.Log(dir.GetFiles()[0]);
-                
-            }
+            if(direction == 1) textureIndex = (textureIndex + direction) % weaponTexture.Length;
             else
             {
                 if (textureIndex == 0) textureIndex = weaponTexture.Length - 1;
                 else textureIndex = textureIndex + direction;
+                //textureIndex = weaponTexture.Length - (weaponTexture.Length - Mathf.Abs((textureIndex + direction) % weaponTexture.Length));
             }
-            
-            testWeapon.gameObject.GetComponent<Renderer>().material.SetTexture("_BaseMap", weaponTexture[textureIndex]);
+
+            weapon.gameObject.GetComponent<Renderer>().material.SetTexture("_BaseMap", weaponTexture[textureIndex]);
+            //foreach (Transform obj in weapon.transform)
+            //{
+            //    obj.gameObject.GetComponent<Renderer>().material.SetTexture("_BaseMap", weaponTexture[textureIndex]);
+            //}
         }
 
         void ChangeCharacterSkin(int direction = 1)
         {
-            if (direction == 1)
-            {
-                if (meshIndex == characterMesh.Length - 1) meshIndex = 0;
-                else meshIndex = meshIndex + direction;
-            }
+            if (direction == 1) meshIndex = (meshIndex + direction) % characterMesh.Length;
             else
             {
                 if (meshIndex == 0) meshIndex = characterMesh.Length - 1;
@@ -105,13 +125,13 @@ namespace V10
 
         void ApplyChanges()
         {
-            choosedCharacterMesh = characterMesh[meshIndex];
-            choosedWeaponTexture = weaponTexture[textureIndex];
-            PlayerPrefs.SetString("Mesh", choosedCharacterMesh.name);
-            Debug.Log(meshIndex);
+            PlayerPrefs.SetString("Mesh", characterMesh[meshIndex].name);
+            PlayerPrefs.SetString("PrimaryWeapon", weaponTexture[primaryTextureIndex].name);
+            PlayerPrefs.SetString("SecondaryWeapon", weaponTexture[secondaryTextureIndex].name);
+            PlayerPrefs.SetString("SpecialWeapon", weaponTexture[specialTextureIndex].name);
         }
 
-        public Texture2D GetTexture() => choosedWeaponTexture;
+        //public Texture2D GetTexture() => choosedWeaponTexture;
         public Mesh GetMesh() => choosedCharacterMesh;
     }
 }
