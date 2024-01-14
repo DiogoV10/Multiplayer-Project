@@ -1,8 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using UnityEditor;
 using UnityEngine;
+
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 namespace V10
 {
@@ -16,8 +19,14 @@ namespace V10
         {
             path = "Assets/PLayerPrefs/Meshes/";
             choosedMesh = PlayerPrefs.GetString("Mesh");
+
+            #if UNITY_EDITOR
             applyMesh = (Mesh)AssetDatabase.LoadAssetAtPath(path + choosedMesh + ".mesh", typeof(Mesh));
-            gameObject.GetComponent<SkinnedMeshRenderer>().sharedMesh = applyMesh;
+            if (applyMesh != null)
+            #endif
+            {
+                gameObject.GetComponent<SkinnedMeshRenderer>().sharedMesh = applyMesh;
+            }
         }
     }
 }

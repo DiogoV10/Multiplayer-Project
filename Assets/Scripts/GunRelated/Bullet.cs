@@ -1,23 +1,38 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace V10
 {
-    public class Bullet : MonoBehaviour
+    public class Bullet : NetworkBehaviour
     {
         [SerializeField] public GunDataSO gunData;
         void Start()
         {
-            Destroy(gameObject, 2f);
+            if (IsServer)
+            {
+                StartCoroutine(DestroyBulletOnServer(gameObject.GetComponent<NetworkObject>()));
+            }
         }
 
         private void OnCollisionEnter(Collision collision)
         {
-            IDamageable damageable = collision.gameObject.GetComponent<IDamageable>();
+            if (collision.gameObject.TryGetComponent(out NetworkObject networkObject))
+            {
+                NetworkPlayerHealth healthComponent = networkObject.GetComponent<NetworkPlayerHealth>();
 
-            damageable?.Damage(gunData.damage);
-            Destroy(gameObject);
+                if (IsServer && healthComponent != null)
+                {
+                    healthComponent.TakeDamage(gunData.damage);
+                }
+            }
+        }
+
+        private IEnumerator DestroyBulletOnServer(NetworkObject bullet)
+        {
+            yield return new WaitForSeconds(2f); // Change this to your desired delay
+            bullet.Despawn();
         }
     }
 }

@@ -195,6 +195,20 @@ namespace V10
             NetworkManager_Server_OnClientDisconnectCallback(clientId);
         }
 
+        //public void SpawnBullet(GameObject bulletPrefab ,Vector3 directionWithSpread, Transform muzzle, float shootForce)
+        //{
+        //    SpawnBulletServerRpc(bulletPrefab, directionWithSpread, muzzle, shootForce);
+        //}
+
+        //[ServerRpc(RequireOwnership = false)]
+        //private void SpawnBulletServerRpc(GameObject bulletPrefab, Vector3 directionWithSpread, Transform muzzle, float shootForce)
+        //{
+        //    GameObject currentBullet = Instantiate(bulletPrefab, muzzle.position, Quaternion.identity);
+        //    currentBullet.transform.forward = directionWithSpread.normalized;
+
+        //    currentBullet.GetComponent<Rigidbody>().AddForce(directionWithSpread.normalized * shootForce, ForceMode.Impulse);
+        //}
+
         public void SpawnWeaponObject(WeaponObjectSO weaponObjectSO, IWeaponObjectParent weaponObjectParent)
         {
             SpawnWeaponObjectServerRpc(GetWeaponObjectSOIndex(weaponObjectSO), weaponObjectParent.GetNetworkObject());

@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace V10
 {
-    public class Gun : MonoBehaviour
+    public class Gun : NetworkBehaviour
     {
         [SerializeField] public GunDataSO gunData;
         [SerializeField] private Transform muzzle;
@@ -91,13 +92,18 @@ namespace V10
 
         private void Bullet(Vector3 directionWithSpread)
         {
-            GameObject currentBullet = Instantiate(bullet, muzzle.position, Quaternion.identity);
+            if (!IsOwner) return;
+            NetworkObject currentBullet = Instantiate(bullet, muzzle.position, Quaternion.identity).GetComponent<NetworkObject>();
+            if (IsServer)
+            {
+                
+                currentBullet.Spawn();
+            }
+
             currentBullet.transform.forward = directionWithSpread.normalized;
-
             currentBullet.GetComponent<Rigidbody>().AddForce(directionWithSpread.normalized * gunData.shootForce, ForceMode.Impulse);
+            //GameMultiplayer.Instance.SpawnBullet(bullet, directionWithSpread, muzzle, gunData.shootForce);
         }
-
-
 
         private Vector3 BulletDirection()
         {
