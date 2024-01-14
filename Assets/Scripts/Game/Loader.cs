@@ -18,6 +18,7 @@ namespace V10
             LobbyScene,
             CharacterCostumization,
             CharacterSelectScene,
+            WeaponsLoadout
         }
 
 
