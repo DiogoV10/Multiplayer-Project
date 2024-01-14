@@ -127,6 +127,7 @@ MonoBehaviour:
   jumpHeight: 2
   jumpTimeout: 0.5
   fallTimeout: 0.15
+  SpeedChangeRate: 10
   groundCheck: {fileID: 4458995525492622230}
   groundDistance: 0.4
   groundMask:
